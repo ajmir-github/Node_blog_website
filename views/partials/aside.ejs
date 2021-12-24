@@ -1,0 +1,37 @@
+<aside class="col-lg-4">
+  <div class="sidebar">
+    <div class="row">
+    
+      <div class="col-lg-12">
+        <div class="sidebar-item mt-0 categories">
+          <div class="sidebar-heading">
+            <h2>Categories</h2>
+          </div>
+          <div class="content">
+            <ul>
+              <% categories.forEach(category=>{ %>
+                <li><a href="/?category=<%=category.toLowerCase(); %>">- <%=category.toUpperCase(); %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="sidebar-item tags">
+          <div class="sidebar-heading">
+            <h2>Top Keywords</h2>
+          </div>
+          <div class="content">
+            <ul>
+              <% keywords.forEach(keyword=>{ %>
+                <li><a href="/?keyword=<%= keyword %>"><%= keyword.toUpperCase() %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</aside>

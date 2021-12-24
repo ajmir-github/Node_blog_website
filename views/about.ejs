@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {
+    title:"About AfghanBlog.Net",
+    keyword: `Know more about AfghanBlog.Net!`,
+    description:"Do you want to know about AfghanBlog.Net!"
+  })%>
+
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>about us</h4>
+                <h2>let’s stay in touch!</h2>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+    <section class="about-us">
+      <div class="container">
+      	
+        <div class="row post-box">
+          <div class="col-lg-12">
+            <img src="assets/images/Brief-History-of-Programming-Languages.jpg" alt="">
+            <p>
+              AfghanBlog.net is an educational website that aims to optimize learning through modern technlogies. We, Afghan youths, are commited to find and try new ways in order to bring prospirity to our country. The website is developed by <a href="/blogger/611e7c599322b81680e967dc">Ajmir Raziqi</a>, an Afghan programmer.
+            </p>
+          </div>
+        </div>
+<!--         
+        <div class="row post-box">
+          <div class="col-lg-6">
+          <h4>Two-One Donec porttitor augue</h4>
+          	<p>Quisque bibendum cursus viverra. Mauris at ex ipsum. Aenean condimentum urna nisl, eget interdum ante euismod vel. Aliquam at metus sit amet nunc dapibus posuere.</p>
+          </div>
+          <div class="col-lg-6">
+          <h4>Two-Two Donec porttitor augue</h4>
+          	<p>Maecenas et metus nisl. Morbi ac interdum metus. Aliquam erat volutpat. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+        </div>
+        
+        <div class="row post-box">
+          <div class="col-lg-4 col-md-6">
+          <h4>1-03 Donec porttitor augue</h4>
+          	<p>Quisque bibendum cursus viverra. Mauris at ex ipsum. Aenean condimentum urna nisl, eget interdum ante euismod vel. Aliquam at metus sit amet nunc dapibus posuere.</p>
+          </div>
+          <div class="col-lg-4 col-md-6">
+          <h4>2-03 Donec porttitor augue</h4>
+          	<p>Maecenas et metus nisl. Morbi ac interdum metus. Aliquam erat volutpat. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+          <div class="col-lg-4">
+          <h4>3-03 Donec porttitor augue</h4>
+          	<p>Maecenas et metus nisl. Morbi ac interdum metus. Aliquam erat volutpat. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+        </div>
+        
+         -->
+        <div class="row post-box">
+          <div class="col-12">
+            <h1 class="py-4 color-a">We focus on</h1>
+          </div>
+          <div class="col-lg-3 col-md-6">
+          <h4>Bringing technlogical development</h4>
+          	<p>Mauris at ex ipsum. Aenean condimentum urna nisl, eget interdum ante euismod vel. Aliquam at metus sit amet nunc dapibus posuere.</p>
+          </div>
+          <div class="col-lg-3 col-md-6">
+          <h4>Inspiring Afghan youths</h4>
+          	<p>Aliquam erat volutpat. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+          <div class="col-lg-3 col-md-6">
+          <h4>Providing job opportunities</h4>
+          	<p>Morbi ac interdum metus. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+          <div class="col-lg-3 col-md-6">
+          <h4>Working as a team</h4>
+          	<p>Aliquam erat volutpat. Donec posuere tortor vel volutpat consequat. Mauris sagittis magna vel tellus semper interdum et id sapien.</p>
+          </div>
+        </div>
+        
+
+        
+        
+      </div>
+    </section>
+
+
+
+
+
+    <section class="contact-us">
+      <div class="container">
+        <div class="row">
+        
+          <div class="col-lg-12">
+            <div class="down-contact mt-4">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="sidebar-item contact-form">
+                    <div class="sidebar-heading">
+                      <h2>Send us a message</h2>
+                    </div>
+                    <div class="content">
+                      <form id="contact" action="/contact" method="post">
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your name" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                              <input name="email" type="text" id="email" placeholder="Your email" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="subject" type="text" id="subject" placeholder="Subject">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <textarea name="message" rows="6" id="message" placeholder="Your Message" required=""></textarea>
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="sidebar-item contact-information">
+                    <div class="sidebar-heading">
+                      <h2>contact information</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <li>
+                          <h5>0093-77-121-0549</h5>
+                          <span>PHONE NUMBER</span>
+                        </li>
+                        <li>
+                          <h5>ajmir.ng3@gmail.com</h5>
+                          <span>EMAIL ADDRESS</span>
+                        </li>
+                        <li>
+                          <h5>Kabul, Afghanistan
+                          	<br>10<sup>th</sup> District</h5>
+                          <span>ADDRESS</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-12 ">
+            <!-- <div id="map">
+              <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div> -->
+            <img class="post-box" id="map" style="width: 100%;" src="/assets/images/map.jpg" alt="">
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    
+     <!-- Include footer -->
+     <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+
+  </body>
+</html>

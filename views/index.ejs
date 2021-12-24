@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {
+    title:"AfghanBlog.Net",
+    keyword:"AfghanBlog.Net is an Afghan blog website.",
+    description:"AfghanBlog.Net, an Afghan blog website developed by Ajmir Raziqi, focuses on technology, computer programming, Al, Health, Economy, and situation of Afghanistan"
+  })%>
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <section class="main-banner header-text">
+      <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+
+          <% featuredPosts.forEach(post=>{ %>
+          <div class="item">
+            <img style="height: 500px; width: 100%; object-fit: cover;" src="/files/post/<%= post.image %>" alt="<%= post.keywords %> image">
+            <div class="item-content" style="text-shadow: 3px 3px 3px black;">
+              <div class="main-content">
+                <a href="/post/<%= post["_id"] %>"><h4><%= post.title %></h4></a>
+                <div class="meta-category">
+                  <span><%= post.category %></span>
+                </div>
+                <ul class="post-info">
+                  <li><a><%= post.author %></a></li>
+                  <li><a><%= post.date.toDateString().split(" ").slice(1, 4).join(" ") %></a></li>
+                  <li><a><%= post.views %> Views</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <% })%>
+     
+        </div>
+      </div>
+    </section>
+    <!-- Banner Ends Here -->
+
+
+
+    <div class="container blog-posts grid-system">
+      <div class="row">
+
+        <main class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+
+
+              <% posts.forEach(post=>{ %>
+                <article class="col-lg-12">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <a href="/post/<%= post["_id"] %>">
+                        <img src="/files/post/<%= post.image %>" alt="<%= post.keywords %> image">
+                      </a>
+                    </div>
+                    <div class="down-content">
+                      <span><%= post.category %></span>
+                      <a href="/post/<%= post["_id"] %>"><h1><%= post.title %></h1></a>
+                      <ul class="post-info">
+                        <li><a><%= post.author %></a></li>
+                        <li><a><%= post.date.toDateString().split(" ").slice(1, 4).join(" ") %></a></li>
+                        <li><a><%= post.comments.length %> Comments</a></li>
+                      </ul>
+                      <p><%= post.intro %></p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-12">
+                            <ul class="post-tags">
+                              <li><i class="fa fa-tags"></i></li>
+                              <% post.keywords.split(",").forEach(keyword =>{ %>
+                                <li><a href="/?keyword=<%= keyword.trim().toLowerCase() %>"><%= keyword.trim() %></a></li>
+                              <% })%>
+                            </ul>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              <% })%>
+
+
+              <% if(!postsFound){ %>
+                <div class="col-lg-12 alert alert-info mb-5">
+                  <h2>404 Sorry!</h2>
+                  <div class="my-2">No posts were found!</div>
+                </div>
+              <% } %>
+              <div class="col-lg-12 mb-5">
+                <ul class="page-numbers">
+                  <li><a href="<%= pagination.prev %>"><i class="fa fa-angle-double-left"></i></a></li>
+                  <li class="active"><a href="<%= pagination.curr %>"><%= pagination.page %></a></li>
+                  <% if(postsFound && pagination.hasNext){ %>
+                    <li><a href="<%= pagination.next %>"><i class="fa fa-angle-double-right"></i></a></li>  
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </main>
+        
+        <!-- include aside -->
+        <%- include("./partials/aside", { categories, keywords}) %>
+
+      </div>
+    </div>
+
+    
+
+    
+
+
+
+    <!-- Include footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+
+  </body>
+</html>

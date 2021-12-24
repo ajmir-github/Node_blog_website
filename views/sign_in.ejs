@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {title:"Home", description:"none"})%>
+
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page">
+      <div class="row justify-content-center contact-us my-5 py-5">
+        <div class="sidebar-item contact-form col-10 " style="max-width: 600px;">
+            <div class="sidebar-heading">
+              <h2>Sign in here!</h2>
+            </div>
+            <form action="/sign_in" method="post">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <fieldset>
+                    <input name="username" type="text" id="username" placeholder="Your username" required>
+                  </fieldset>
+                </div>
+                <div class="col-12">
+                  <fieldset>
+                    <input name="password" type="text" id="password" placeholder="Your password" required>
+                  </fieldset>
+                </div>
+                <% if(alert){ %>
+                <div class="alert alert-warning">
+                  <strong>Sorry!</strong> <%= message %>
+                </div>
+                <% } %>
+                <div class="col-12 row justify-content-center">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="main-button">Sign In</button>
+                  </fieldset>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+        
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+
+
+    
+    <!-- Include footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+
+  </body>
+</html>

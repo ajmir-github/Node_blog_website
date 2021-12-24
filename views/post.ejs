@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {
+    title:`${post.author}: ${post.title}`,
+    keyword: `A posted article, ${post.title}`,
+    description:post.intro
+  })%>
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Post Details</h4>
+                <h2>Single blog post</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+
+    <main class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-5">
+            <div class="all-blog-posts">
+              <div class="row">
+                <div class="col-lg-12">
+                  <article class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="/files/post/<%= post.image %>" alt="">
+                    </div>
+                    <div class="down-content">
+                      <span><%= post.category %></span>
+                      <h1><%= post.title %></h1>
+                      <ul class="post-info">
+                        <li><a><%= post.author %></a></li>
+                        <li><a><%= post.date.toDateString().split(" ").slice(1, 4).join(" ") %></a></li>
+                        <li><a><%= post.comments.length %> Comment(s)</a></li>
+                        <li><a><%= post.views %> Views(s)</a></li>
+                      </ul>
+                      <p id="<%= post['_id'] %>">
+                      </p>
+                      <script>
+                        function htmlDecode(inp){
+                          var replacements = {'&lt;':'<','&gt;':'>','&sol;':'/','&quot;':'"','&apos;':'\'','&amp;':'&','&laquo;':'«','&raquo;':'»','&nbsp;':' ','&copy;':'©','&reg;':'®','&deg;':'°'};
+                          for(var r in replacements){
+                            inp = inp.replace(new RegExp(r,'g'),replacements[r]);
+                          }
+                          return inp.replace(/&#(\d+);/g, function(match, dec) {
+                            return String.fromCharCode(dec);
+                          });
+                        }
+                        const string = `<%= post.content %>`;
+                        const id = `<%= post['_id'] %>`;
+                        const html = htmlDecode(string);
+                        document.getElementById(id).outerHTML = html;
+                      </script>
+                      <div class="post-options">
+                        <div class="row">
+
+                          <div class="col-6 col-md-8">
+                            <ul class="post-tags">
+                              <li><i class="fa fa-tags"></i></li>
+                              <% post.keywords.split(",").forEach(keyword =>{ %>
+                                <li><a href="/?keyword=<%= keyword.trim().toLowerCase() %>"><%= keyword.trim() %></a></li>
+                              <% })%>
+                            </ul>
+                          </div>
+                          <div class="col-6 col-md-4 row justify-content-end align-items-center">
+                            <button class="submit-button main-button" data-toggle="modal" data-target="#commentModal">Make comment</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div class="col-lg-12">
+                  <!-- comments -->
+                  <% if(post.comments.length > 0){ %>
+                  <div class="sidebar-item comments">
+                    <div class="sidebar-heading">
+                      <h2><%= post.comments.length %> Comment(s)</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <% post.comments.forEach((comment) =>{ %>
+                          <li>
+                          <div class="author-thumb">
+                            <img src="/assets/images/img_avatar.png" alt="<%= comment.email %>">
+                          </div>
+                          <div class="right-content">
+                            <h4><%= comment.name %><div><%= post.date.toDateString().split(" ").slice(1, 4).join(" ") %></div></h4>
+                            <p class="color-a font-italic" style="margin-top:0.8rem;"><%= comment.subject %></p>
+                            <p><%= comment.message %></p>
+                          </div>
+                        </li>
+                        <% }) %>
+                      </ul>
+                    </div>
+                  </div>
+                  <% } %>
+                  <!-- comments -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-lg-4">
+            <div class="sidebar">
+              <div class="row">
+             
+
+                <div class="col-lg-12">
+                  <div class="sidebar-item mt-0 categories">
+                    <div class="sidebar-heading">
+                      <h2>Categories</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <% categories.forEach(category=>{ %>
+                          <li><a href="/?category=<%=category.toLowerCase(); %>">- <%=category.toUpperCase(); %></a></li>
+                        <% }) %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item tags">
+                    <div class="sidebar-heading">
+                      <h2>Top Keywords or Tags</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <% keywords.forEach(keyword=>{ %>
+                          <li><a href="/?keyword=<%= keyword %>"><%= keyword.toUpperCase() %></a></li>
+                        <% }) %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+
+
+  <!-- The commentModal -->
+  <div class="modal fade" id="commentModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">You can make your comment here!</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form id="comment" action="/make_comment/<%= post["_id"] %>" method="post">
+            <div class="row">
+              <div class="col-12 form-group">
+                <label for="name">Name:</label>
+                <input name="name" type="text" placeholder="Your name" class="form-control" id="name" required="">
+              </div>
+
+              <div class="col-12 form-group">
+                <label for="email">Email:</label>
+                <input name="email" type="text" placeholder="Your email" class="form-control" id="email" required="">
+              </div>
+   
+              <div class="col-12 form-group">
+                <label for="subject">Subject:</label>
+                <input name="subject" type="text" placeholder="Subject" class="form-control" id="subject" required="">
+              </div>
+   
+              <div class="col-12 form-group">
+                <label for="subject">Subject:</label>
+                <textarea class="form-control" name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+              </div>
+   
+              
+              <div class="col-lg-12 row justify-content-end">
+                  <button type="submit" class="mx-1 btn btn-success">Submit</button>
+                  <button type="button" class="mx-1 btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    
+        
+      </div>
+    </div>
+  </div>
+  <!-- The end of commentModal -->
+
+
+    
+    <!-- Include footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+
+
+  </body>
+
+</html>

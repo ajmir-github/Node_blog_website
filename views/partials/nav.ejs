@@ -1,0 +1,94 @@
+
+  <div id="loader-wrapper">
+            
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+  </div>
+
+<!-- Header -->
+<header class="">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="/"><h2>Afghan blog<em>.</em>net</h2></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link">
+              <!-- This will open search modal -->
+              <i class="fa fa-search" data-toggle="modal" data-target="#search-modal"></i>
+            </a>
+          </li>
+
+          <li class="nav-item activea">
+            <a class="nav-link" href="/" title="Afghanblog.net website">Home</a>
+          </li> 
+          
+          <li class="nav-item activea">
+            <a class="nav-link" href="/bloggers" title="Afghanblog.net bloggers">Bloggers</a>
+          </li> 
+         
+          <li class="nav-item">
+            <a class="nav-link" href="/about" title="About Afghanblog.net">About Us</a>
+          </li> 
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/sign_in" title="About Afghanblog.net">Sign In</a>
+          </li> 
+
+          <!--
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">More</a>
+            <div class="dropdown-menu p-2 mb-2">
+              <a class="dropdown-item nav-link" href="/sign_in">Sign In</a>
+              <a class="dropdown-item nav-link" href="/sign_up">Sign Up</a>
+            </div>
+          </li>
+          -->
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+
+
+<!-- Search Modal -->
+<div class="modal fade" id="search-modal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">You can search here!</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="col-12">
+          <form action="/<%= typeof(searchAPI)==='undefined'?'':searchAPI %>" method="GET" class="input-group mb-3">
+          
+            <div class="input-group mb-3">
+              <input autocomplete="off" name="search" type="text" class="form-control" placeholder="Search" required>
+              <div class="input-group-append">
+                <button class="btn btn-success" type="submit">Search</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

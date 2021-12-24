@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Include Add the needed head tags and links -->
+<%- include("partials/head", {name:user.firstName+" "+user.lastName})%>
+
+<body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+
+
+
+  <div class="container grid-system heading-page">
+    <div class="row blog-posts">
+      
+      <!-- Adding a post -->
+      <div class="col-lg-12">
+        <div class="all-blog-posts">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="blog-post p-4">
+                <h2>Add a post</h2>
+                <form action="/add_post" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="title">Post Title:</label>
+                    <input class="form-control" name="title" type="text" id="title" placeholder="Post Title" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="category">Post category:</label>
+                    <input class="form-control" name="category" type="text" id="category" placeholder="Post category"
+                      required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="keywords">Post keywords:</label>
+                    <input class="form-control" name="keywords" type="text" id="keywords" placeholder="Post keywords"
+                      required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="image">Post Image: </label>
+                    <input class="form-control" name="image" type="file" id="image" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="content">Post Intro:</label>
+                    <textarea class="form-control" name="intro" id="" cols="60" rows="4" id="content" required></textarea>
+                  </div>
+                  <!-- Button to Open the Modal -->
+      
+                  <div class="form-group" style="display: none;">
+                    <textarea name="content" id="content-input"></textarea>
+                  </div>
+                  <!-- Button to Open the Modal -->
+                  <script>
+                    class PostEditor {
+                      constructor(elementId) {
+                        this.container = document.getElementById(elementId);
+                      }
+                      add(template) {
+                        const newElement = document.createElement("DIV");
+                        newElement.innerHTML = template;
+                        this.container.appendChild(newElement);
+                      }
+                      get(index){
+                        if (typeof index === "undefined") {
+                          return this.container.children;
+                        } else {
+                          return this.container.children[index];
+                        }
+                      }
+                      pop(){
+                        const lastChild = this.container.lastChild;
+                        this.container.removeChild(lastChild);
+                      }
+                      size(){
+                        return this.get().length;
+                      }
+                      remove(index){
+                        const child = this.get(index);
+                        this.container.removeChild(child);
+                      }
+                      reset() {
+                        this.container.innerHTML = "";
+                        this.count = 0;
+                      }
+                      create = {
+                        paragraph: (header, content)=>`
+                          <div>
+                            <h4>${header}</h4>
+                            <p>${content}</p>
+                          </div>
+                        `,
+                        list: (header, listItems)=>`
+                          <div>
+                            <h4>${header}</h4>
+                            <ul>
+                              ${listItems.map(item => `<li>${item}</li>`).join("")}
+                            </ul>
+                          </div>
+                        `,
+                        table: (header, tableHeads, tableDatas)=>`
+                          <div>
+                            <h4>${header}</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  ${tableHeads.map(item => `<th>${item}</th>`).join("")}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                ${tableDatas.map(tr =>{
+                                  return `<tr>${tr.map(td => `<td>${td}</td>`).join("")}</tr>`
+                                }).join("")}
+                              </tbody>
+                            </table>
+                          </div>
+                        `,
+                        link: (header, linkTitle, link)=> `
+                          <div>
+                            <p>
+                              ${header}
+                              <br/>
+                              <a href="${link}"><svg viewBox="0 0 512 512"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg> ${linkTitle}</a></p>
+                          </div>
+                        `,
+                        image: (caption, source, alt="")=>`
+                          <div>
+                            <img src="${source}" alt="${alt}">
+                            <h6>${caption}</h6>
+                          </div>
+                        `,
+                        video: (caption, source)=>`
+                          <div>
+                            <video controls>
+                              <source src="${source}" type="video/mp4">
+                              <div class="alert alert-danger">
+                                <strong>Your browser does not support the video.</strong> Please update or user other browser.
+                              </div>
+                            </video>
+                            <h6>${caption}</h6>
+                          </div>
+                        `
+                      }
+                    }
+                  </script>
+                  
+                  
+                  <div class="modal-body">
+                    <h4 class="modal-title">Create post body and preview it</h4>
+                    <div id="post-body" class="post-body col-12"></div>
+                    <!-- Modal to preview the content -->
+                    <script>
+                      const editor = new PostEditor("post-body");
+                      const contentInput = document.getElementById("content-input");
+                      function savePostBody() {
+                        contentInput.value = editor.container.outerHTML;
+                      }
+                      // editor.add(editor.create.paragraph("Header", "This is the content!"))
+                    </script>
+                  
+                    <div class="my-2">
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#paragraph-tab">Paragraph</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#list-tab">List</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#link-tab">Link</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#table-tab">Table</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#picture-tab">Picture</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#video-tab">Video</a>
+                        </li>
+                      </ul>
+                    
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                  
+                        <div id="paragraph-tab" class="container  tab-pane active"><br>
+                          <h3>Paragraph</h3>
+                          <div class="form-group">
+                            <label for="paragraph-header">Header:</label>
+                            <input type="text" class="form-control" id="paragraph-header">
+                          </div>
+                          <div class="form-group">
+                            <label for="paragraph-content">Content:</label>
+                            <textarea class="form-control" id="paragraph-content" id="" cols="30" rows="10"></textarea>
+                          </div>
+                          <a href="#" onclick="addParagraph()" class="btn btn-success">Append Paragraph</a>
+                          <script>
+                            function addParagraph() {
+                              const header = document.getElementById("paragraph-header").value;
+                              const content = document.getElementById("paragraph-content").value;
+                              editor.add(editor.create.paragraph(header, content));
+                              savePostBody();
+                            }
+                          </script>
+                        </div>
+                  
+                        <div id="list-tab" class="container tab-pane fade"><br>
+                          <h3>Unordered List</h3>
+                          <div class="form-group">
+                            <label for="unordered-list-header">Header:</label>
+                            <input type="text" class="form-control" id="unordered-list-header">
+                          </div>
+                          <div class="form-group">
+                            <label for="unordered-list-items">List items(enter to seperate them):</label>
+                            <textarea class="form-control" id="unordered-list-items" id="" cols="30" rows="10"></textarea>
+                          </div>
+                          <a href="#" onclick="addUnorderedList()" class="btn btn-success">Append List</a>
+                          <script>
+                            function addUnorderedList() {
+                              const header = document.getElementById("unordered-list-header").value;
+                              const listItems = document.getElementById("unordered-list-items").value.split(/\n/g);
+                              console.log({header, listItems});
+                              editor.add(editor.create.list(header, listItems));
+                              savePostBody();
+                            }
+                          </script>
+                        </div>
+                  
+                        <div id="link-tab" class="container tab-pane fade"><br>
+                          <h3>link 2</h3>
+                          <div class="form-group">
+                            <label for="link-header">Link header:</label>
+                            <input type="text" class="form-control" id="link-header">
+                          </div>
+                          <div class="form-group">
+                            <label for="link-title">Link title:</label>
+                            <input type="text" class="form-control" id="link-title">
+                          </div>
+                          <div class="form-group">
+                            <label for="link-url">Link url:</label>
+                            <input type="text" class="form-control" id="link-url">
+                          </div>
+                          
+                          <a href="#" onclick="addLink()" class="btn btn-success">Append Link</a>
+                          <script>
+                            function addLink() {
+                              const header = document.getElementById("link-header").value;
+                              const title = document.getElementById("link-title").value;
+                              const url = document.getElementById("link-url").value;
+                              editor.add(editor.create.link(header, title, url));
+                              savePostBody();
+                            }
+                          </script>
+                        </div>
+                  
+                        <div id="table-tab" class="container tab-pane fade"><br>
+                          <h3>table 2</h3>
+                          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        </div>
+                  
+                        <div id="picture-tab" class="container tab-pane fade"><br>
+                          <h3>picture 2</h3>
+                          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        </div>
+                  
+                        <div id="video-tab" class="container tab-pane fade"><br>
+                          <h3>Video</h3>
+                          <div class="form-group">
+                            <label for="video-caption">Video caption:</label>
+                            <input type="text" class="form-control" id="video-caption">
+                          </div>
+                          <div class="form-group">
+                            <label for="vidoe-source">Video Source:</label>
+                            <input type="text" class="form-control" id="vidoe-source">
+                          </div>
+                          <a href="#" onclick="addVideo()" class="btn btn-success">Append video</a>
+                          <script>
+                            function addVideo() {
+                              const caption = document.getElementById("video-caption").value;
+                              const source = document.getElementById("vidoe-source").value;
+                              editor.add(editor.create.video(caption, source));
+                              savePostBody();
+                            }
+                          </script>
+                        </div>
+                  
+                      </div>
+                    </div>
+                    <!-- End of Modal to preview the content -->
+                    
+                  </div>
+                  
+                  
+
+      
+                  <div class="col-12 row justify-content-end">
+                    <button type="submit" id="form-submit" class="m-1 btn btn-success">Add</button>
+                    <button type="button" class="m-1 btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Adding a post -->
+      
+      <!-- Selecting a post -->
+      <div class="col-lg-12">
+        <div class="all-blog-posts">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="blog-post p-4">
+                <h2>Delete a post</h2>
+
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search posts by title" id="delete_search_input">
+                    <div class="input-group-append">
+                      <button class="btn btn-success" type="button" id="delete_search_button">Filter</button>
+                    </div>
+                  </div>
+                 
+                  <style>
+                    .select-post{
+                      margin: 20px;
+                    }
+                    .select-post .select-title{
+                      font-size: 1.2rem;
+                      font-weight: bold;
+                    }
+                    .select-post .select-detail{
+                      font-style: italic;
+                      margin-left: 10px;
+                    }
+
+                  </style>
+
+                  <div id="delete_container"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Selecting a post -->
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Include footer -->
+  <%- include("partials/footer") %>
+
+  <!-- Include Add the needed scripts -->
+  <%- include("partials/js_links") %>
+
+
+  <script>
+    $(document).ready(function(){
+      const deleteInput = $("#delete_search_input");
+      const container = $("#delete_container");
+      const handleSearchButton = ()=>{
+        const inputValue = deleteInput.val();
+        let html = `<h2 class="text-info text-center m-5">Loading...<h2>`;
+        container.html(html);
+        
+        $.get(`/profile/posts/search?search=${inputValue}`, function(posts, status){
+          let html = "";
+          if(status === "success"){
+            for(let post of posts){
+              let { _id, title, date, author } = post;
+              html += `
+                <div class="select-post">
+                  <div class="select-title">${title}</div>
+                  <div class="select-detail">
+                    <a class="badge badge-danger" href="/profile/posts/delete/${_id}">Delete</a>
+                    <span class="badge">${date}</span>
+                    <span class=" badge">${author}</span>
+                  </div>
+                </div>
+              `;             
+            }
+            if(posts.length == 0){
+              container.html(`<h2 class="text-info text-center m-5">No posts found...<h2>`);
+              }else {
+              container.html(html);
+            }
+          }
+        });
+      };
+      handleSearchButton(); // initiate by getting some posts
+      $("#delete_search_button").click(handleSearchButton);
+    })
+   </script>
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {title:"alert", description:""})%>
+  <body>
+
+      <!-- User Profile data -->
+    <div class="container heading-page" style="min-height: 100vh;">
+      <div class="row justify-content-center align-items-center mt-5">
+
+        <div class="col-10 alert alert-<%= type %>">
+          <h2><%= type.toUpperCase() %>!</h2>
+          <div class="my-2"><%= message %></div>
+          <a href="<%= link.href %>" class="alert-link"><%= link.name %></a>.
+        </div>
+
+      </div>
+    </div>
+
+
+  </body>
+</html>

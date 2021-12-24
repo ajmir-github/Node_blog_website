@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {
+    title:"Afghan Bloggers",
+    keyword: `Registered blogger of AfghanBlog.Net`,
+    description:"We have made a community of Afghan Bloggers who are commited to work cooperatively to bring new things to Afghanistan."
+  })%>
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav", {searchAPI:"bloggers"})%>
+
+   
+        <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Bloggers</h4>
+                <h2>Know more about our bloggers</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+    <main class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              <div class="row">
+
+                <% users.forEach(user=>{ %>
+                  <article class="col-lg-6">
+                    <div class="blog-post">
+                      <div class="blog-thumb">
+                        <a href="/blogger/<%= user['_id'] %>"><img src="/files/user/<%= user.profile_photo %>" alt=""></a>
+                      </div>
+                      <div class="down-content down-content-a">
+                        <span><%= user.role.roleName %></span>
+                        <a href="/blogger/<%= user['_id'] %>"><h4><%= user.firstName %> <%= user.lastName %></h4></a>
+                  
+                        <div class="post-options">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <ul class="post-tags">
+                                <li><i class="fa fa-arrow-right"></i></li>
+                                <li><a href="/blogger/<%= user['_id'] %>">View profile</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                <% }) %>
+
+                <% if(!usersFound){ %>
+                  <div class="col-lg-12 alert alert-info mb-5">
+                    <h2>404 Sorry!</h2>
+                    <div class="my-2">No more users were found!</div>
+                  </div>
+                <% } %>
+
+                <div class="col-lg-12 mb-5">
+                  <ul class="page-numbers">
+                    <li><a href="<%= pagination.prev %>"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li class="active"><a href="<%= pagination.curr %>"><%= pagination.page %></a></li>
+                    <% if(usersFound && pagination.hasNext){ %>
+                      <li><a href="<%= pagination.next %>"><i class="fa fa-angle-double-right"></i></a></li>  
+                    <% } %>
+                  </ul>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+
+        <!-- include aside -->
+        <%- include("./partials/aside", { categories, keywords}) %>
+
+
+        </div>
+      </div>
+    </main>
+
+
+    <!-- Include footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Include Add the needed head tags and links -->
+<%- include("partials/head", {name:user.firstName+" "+user.lastName})%>
+
+<body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+
+  
+  <div class="container grid-system heading-page">
+    <div class="row blog-posts">
+      
+      <!-- Adding a post -->
+      <div class="col-lg-12">
+        <div class="all-blog-posts">
+          <div class="row">
+            <!-- add user start -->
+            <div class="col-lg-12">
+              <div class="blog-post p-4">
+                <h2>Add a user</h2>
+
+                <form action="/add_user" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input class="form-control" name="firstName" type="text" id="firstName" placeholder="First Name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input class="form-control" name="lastName" type="text" id="lastName" placeholder="Last Name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="dateOfBirth">Date of birth:</label>
+                    <input class="form-control"  name="dateOfBirth" type="text" id="dateOfBirth" required="" onblur="this.type = 'text'" onfocus="this.type = 'date'">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" name="email" type="text" id="email" placeholder="email" required="">
+                  </div>
+                
+                  <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input class="form-control" name="address" type="text" id="address" placeholder="Address" required>
+                  </div>
+             
+                  <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input class="form-control" name="phone" type="text" id="phone" placeholder="Phone" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="profile_photo">Profile photo: </label>
+                    <input class="form-control" name="profile_photo" type="file" id="profile_photo" required="">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="username">Username: </label>
+                    <input class="form-control" name="username" type="text" id="username" required="">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="password">Password: </label>
+                    <input class="form-control" name="password" type="text" id="password" required="">
+                  </div>
+
+                  <div class="col-12 row justify-content-end">
+                    <button type="submit" id="form-submit" class="m-1 btn btn-success">Add</button>
+                  </div>
+
+                </form>
+                
+              </div>
+            </div>
+            <!-- add user end -->
+
+            
+            <!-- delete user start -->
+            <div class="col-lg-12">
+              <div class="blog-post p-4">
+                <h2>Delete a user</h2>
+                <form action="/delete_user" method="post" enctype="multipart/form-data">
+
+                  <div class="form-group">
+                    <label for="username">Username: </label>
+                    <input class="form-control" name="username" type="text" id="username" required="">
+                  </div>
+
+                  <div class="col-12 row justify-content-end">
+                    <button type="submit" id="form-submit" class="m-1 btn btn-danger">Delete</button>
+                  </div>
+
+                </form>
+                
+              </div>
+            </div>
+            <!-- delete user end -->
+            
+            <!-- authorize user start -->
+            <div class="col-lg-12">
+              <div class="blog-post p-4">
+                <h2>Authorize a user</h2>
+                <form action="/authorize_user" method="post" enctype="multipart/form-data">
+
+                  <div class="form-group">
+                    <label for="username">Username: </label>
+                    <input class="form-control" name="username" type="text" id="username" required="">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="toUserType" value="2">Admin
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="toUserType" value="3">Blogger
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-12 row justify-content-end">
+                    <button type="submit" id="form-submit" class="m-1 btn btn-info">Change</button>
+                  </div>
+
+                </form>
+                
+              </div>
+            </div>
+            <!-- authorize user end -->
+
+          </div>
+        </div>
+      </div>
+      <!-- Adding a post -->
+      
+
+
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Include footer -->
+  <%- include("partials/footer") %>
+
+  <!-- Include Add the needed scripts -->
+  <%- include("partials/js_links") %>
+
+
+
+
+</body>
+
+</html>

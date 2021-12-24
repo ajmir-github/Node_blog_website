@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <!-- Include Add the needed head tags and links -->
+  <%- include("partials/head", {title:"Home", description:"none"})%>
+
+
+  <body>
+
+  <!-- Include Navbar -->
+  <%- include("partials/nav")%>
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page">
+      <div class="row justify-content-center contact-us my-5 py-5">
+        <div class="sidebar-item contact-form col-10" style="max-width: 600px;">
+            <div class="sidebar-heading">
+              <h2>Sign up here!</h2>
+            </div>
+            <form action="/sign_up" method="post" enctype="multipart/form-data">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                    <input name="firstName" type="text" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="col-12">
+                    <input name="lastName" type="text" id="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="col-12">
+                    Date of birth:
+                    <input name="dateOfBirth" type="text" id="dateOfBirth" required onblur="this.type = 'text'" onfocus="this.type = 'date'">
+                </div>
+                <div class="col-12">
+                    <input name="email" type="text" id="email" placeholder="email" required>
+                </div>
+                <div class="col-12">
+                    <input name="address" type="text" id="address" placeholder="Address" required>
+                </div>
+                <div class="col-12">
+                    <input name="phone" type="text" id="phone" placeholder="Phone" required>
+                </div>
+                <div class="col-12">
+                    Photo: 
+                    <input name="profile_photo" type="file" id="profile_photo" required>
+                </div>
+                <div class="col-12">
+                    <input name="username" type="text" id="username" placeholder="Your username" required>
+                </div>
+                <div class="col-12">
+                    <input name="password" type="text" id="password" placeholder="Your password" required>
+                </div>
+                <% if(alert){ %>
+                  <div class="alert alert-warning"><strong>Sorry!</strong> <%= message %></div>
+                <% } %>
+                <div class="col-12 row justify-content-center">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="main-button">Sign Up</button>
+                  </fieldset>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+        
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+
+
+    
+    <!-- Include footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Include Add the needed scripts -->
+    <%- include("partials/js_links") %>
+
+    <script src="assets/js/custom.js"></script>
+
+ 
+
+  </body>
+</html>
